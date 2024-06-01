@@ -2,6 +2,15 @@
   position: relative;
 }
 
+.searched-products {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.searched-products > h2 {
+  margin-bottom: 1rem;
+}
+
 .home__hero-container {
   background: linear-gradient(
     to right,
@@ -15,9 +24,9 @@
   width: 100%;
   max-width: 1440px;
   font-family: var(--font-family);
-  background: url(../../assets/hero-img.png);
-  background-repeat: no-repeat;
-  background-size: contain;
+  /* background: url(../../assets/hero-img.png); */
+  /* background-repeat: no-repeat;
+  background-size: contain; */
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -27,7 +36,10 @@
 
 .home__hero--text {
   width: 100%;
-  max-width: 650px;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  /* max-width: 650px; */
   color: var(--color-white);
 }
 

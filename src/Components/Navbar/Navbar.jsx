@@ -1,15 +1,60 @@
 import { React, useState } from "react";
-import { Link } from "react-router-dom";
 
+import { Link, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../authentication/firebase";
+
+import { products } from "../../data/products";
 import { QuickCart } from "../";
 
 import "./navbar.css";
 
-const Navbar = ({ cartItems, setCartItems }) => {
+const Navbar = ({
+  cartItems,
+  setCartItems,
+  isLoggedIn,
+  setIsLoggedIn,
+  searchedProducts,
+  setSearchedProducts,
+}) => {
+  const navigate = useNavigate();
   const [isCartOpened, setIsCartOpened] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
+  function handleSearchInput(e) {
+    setSearchValue((searchValue) => (searchValue = e.target.value));
+
+    if (searchValue === "" || searchValue === " ") {
+      setSearchedProducts([]);
+      return;
+    }
+
+    const productsFilteredBySearch = products.filter((item) => {
+      if (item.name.toLowerCase().includes(searchValue.toLowerCase())) {
+        return item;
+      }
+    });
+    setSearchedProducts(productsFilteredBySearch);
+    console.log(`Search Value: ${searchValue}`);
+    console.log(searchedProducts);
+  }
 
   const toggleCart = () => {
     setIsCartOpened(!isCartOpened);
+  };
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        setIsLoggedIn(false);
+        localStorage.setItem("isLoggedIn", false);
+        navigate("/");
+        console.log("Signed out successfully");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
 
   return (
@@ -47,13 +92,19 @@ const Navbar = ({ cartItems, setCartItems }) => {
                 name="search"
                 id="search"
                 placeholder="search"
+                onChange={handleSearchInput}
               />
             </div>
           </div>
-
-          <Link className="navbar__login--login" to={"/login"}>
-            Login/Register
-          </Link>
+          {isLoggedIn ? (
+            <button className="button logout" onClick={handleLogout}>
+              Logout
+            </button>
+          ) : (
+            <Link className="navbar__login--login" to={"/login"}>
+              Login/Register
+            </Link>
+          )}
         </div>
       </div>
 

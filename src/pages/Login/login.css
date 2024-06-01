@@ -30,3 +30,18 @@
   outline: none;
   margin-bottom: 0.5rem;
 }
+
+.orange-btn {
+  border: none;
+}
+
+.white-btn {
+  margin-top: 1rem;
+}
+
+.white-btn > a {
+  width: 100%;
+  /* background-color: yellow; */
+  text-align: center;
+  /* padding: 16px 32px; */
+}

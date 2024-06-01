@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./quick-cart.css";
 
@@ -6,7 +6,9 @@ import { products } from "../../data/products";
 import { Link } from "react-router-dom";
 
 // cart takes as props a specific product added to the cart
-const QuickCart = ({ cartItems, setCartItems }) => {
+const QuickCart = ({ cartItems, setCartItems, isLoggedIn, setIsLoggedIn }) => {
+  const [itemQuantity, setItemQuantity] = useState(1);
+
   return (
     <div className="cart">
       {cartItems.length == 0 ? (
@@ -42,12 +44,29 @@ const QuickCart = ({ cartItems, setCartItems }) => {
                     className="s-btn"
                     src="../../../src/assets/icons/minus-icon.svg"
                     alt="minus"
+                    onClick={() => {
+                      if (itemQuantity == 1) {
+                        let newCartItems = cartItems.splice(index, 1);
+                        setCartItems((cartItems) => [
+                          newCartItems,
+                          ...cartItems,
+                        ]);
+                        console.log("remove from cart");
+                      } else {
+                        setItemQuantity((itemQuantity) => (itemQuantity -= 1));
+                      }
+                      console.log(itemQuantity);
+                    }}
                   />
-                  <p>1</p>
+                  <p>{itemQuantity}</p>
                   <img
                     className="s-btn"
                     src="../../../src/assets/icons/plus-icon.svg"
                     alt="plus"
+                    onClick={() => {
+                      setItemQuantity((itemQuantity) => (itemQuantity += 1));
+                      console.log(itemQuantity);
+                    }}
                   />
                 </div>
               </div>

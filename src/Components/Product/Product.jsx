@@ -19,6 +19,7 @@ const Product = ({
     } else {
       // cartItems.push(productList[productIndex]);
       setCartItems((cartItems) => [...cartItems, productList[productIndex]]);
+      localStorage.setItem("cartItems", cartItems.length);
     }
 
     console.log(cartItems);
@@ -26,7 +27,11 @@ const Product = ({
 
   return (
     <div className="product">
-      <img src={img} alt="Product" />
+      <div className="product-img-container">
+        <img src={img} alt="Product" />
+      </div>
+      {/* <div className="product-img-container"> */}
+      {/* </div> */}
       <div className="product__detail">
         <div>
           <p className="price">Ugx {price}</p>

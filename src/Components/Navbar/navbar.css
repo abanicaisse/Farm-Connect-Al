@@ -101,6 +101,12 @@
   border-radius: 8px;
 }
 
+.logout {
+  width: 50px;
+  background-color: var(--color-orange) !important;
+  border: none;
+}
+
 /* Media Queries */
 @media screen and (max-width: 800px) {
   .navbar {
